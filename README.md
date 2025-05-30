@@ -4,19 +4,33 @@ This is a minimal implementation of the RAG model for question answering.
 
 ## Requirements
 
-- Python 3.8 or later
+* Python 3.8 or later
 
-## Install Python using MiniConda
+**Install Python using MiniConda**
 
-1. Download and install [MiniConda](https://docs.conda.io/en/latest/miniconda.html).
+1.  Download and install MiniConda from [here](https://docs.conda.io/en/latest/miniconda.html)
+2.  Create a new environment using the following command:
 
-2. Create a new environment using the following command:
+    ```bash
+    $ conda create -n mini-rag python=3.8
+    ```
+3.  Activate the environment:
+
+    ```bash
+    $ conda activate mini-rag
+    ```
+
+## Installation
+
+**Install the required packages**
 
 ```bash
-    conda create -n mini-rag python=3.8
+$ pip install -r requirements.txt
 ```
 
-3. Activate the environment
-```bash
-    conda activate mini-rag
+
+**Setup the environment variables**
+
+``` bash
+$ cp .env.example .env
 ```
