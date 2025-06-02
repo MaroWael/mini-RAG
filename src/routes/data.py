@@ -34,7 +34,7 @@ async def upload_data(project_id: str, file: UploadFile,
             content={"message": msg, "project_id": project_id, "file_name": file.filename}
         )
     
-    file_path = data_controller.generate_unique_file_name(file.filename, project_id)
+    file_path, file_id = data_controller.generate_unique_filepath(file.filename, project_id)
     
     try:
         async with aiofiles.open(file_path, 'wb') as out_file:
@@ -47,12 +47,14 @@ async def upload_data(project_id: str, file: UploadFile,
         logger.error(f"Failed to upload file {file.filename} for project {project_id}: {e}")
         return JSONResponse(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            content={"message": ResponseSignal.FILE_UPLOAD_FAILED.value}
+            content={
+                "message": ResponseSignal.FILE_UPLOAD_FAILED.value}
         )
         
     return JSONResponse(
         status_code=status.HTTP_201_CREATED,
         content={
             "message": ResponseSignal.FILE_UPLOAD_SUCCESS.value,
+            "file_id": file_id
         }
     )
