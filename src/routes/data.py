@@ -13,7 +13,8 @@ data_router = APIRouter(
 )
 @data_router.post("/upload/{project_id}")
 async def upload_data(project_id: str, file: UploadFile,
-                    app_settings: Settings = Depends(get_settings)):
+                    app_settings: Settings = Depends(get_settings),
+                    data_controller: DataController = Depends(DataController)):
 
     if not project_id.strip():
         return JSONResponse(
@@ -26,8 +27,6 @@ async def upload_data(project_id: str, file: UploadFile,
             status_code=status.HTTP_400_BAD_REQUEST,
             content={"message": ResponseSignal.FILE_DOESNOT_EXIST.value}
         )
-    
-    data_controller = DataController()
     is_valid, msg = data_controller.validate_uploaded_file(file)
     if not is_valid:
         return JSONResponse(
